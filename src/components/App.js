@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+const BASE_URL = 'http://localhost:3000/api'
 
 class App extends Component {
   constructor(props) {
@@ -10,11 +11,15 @@ class App extends Component {
     }
   }
 
-  componentDidMount () {
-    fetch('http://localhost:3000/api/auctions')
+  getAuctions () {
+    fetch(`${BASE_URL}/auctions`)
       .then(r => r.json())
       .then(({auctions}) => this.setState({auctions}))
       .catch(console.info)
+  }
+
+  componentDidMount () {
+    this.getAuctions();
   }
 
   render() {
