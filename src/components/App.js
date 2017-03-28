@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       auctions: []
     }
+    this.postAuction = this.postAuction.bind(this);
   }
 
   getAuctions () {
@@ -20,17 +21,29 @@ class App extends Component {
       .catch(console.info)
   }
 
-  componentDidMount () {
-    this.getAuctions();
+  postAuction (auction) {
+    console.info(auction)
+    fetch(
+      `${BASE_URL}/auctions`,
+      {
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(auction)
+      }
+    )
+    .then(r => r.json())
+    .then(r => console.info(r))
+    .then(() => {
+      this.getAuctions()
+    })
+    .catch(console.error)
   }
 
-  handleAuctionClick({id}) {
-    const {auctions} = this.state;
-    this.setState({
-      auctions: auctions.map(auc => {
-        Object.assign({}, auc)
-      })
-    })
+  componentDidMount () {
+    this.getAuctions();
   }
 
   render() {
@@ -38,13 +51,11 @@ class App extends Component {
     return (
       <div className="App">
         <h1>AUCTIONS</h1>
+        <AuctionNew onSubmit={this.postAuction}/>
         <AuctionsIndex auctions={auctions} />
-        <AuctionNew />
       </div>
     );
   }
 }
-
-
 
 export default App;
