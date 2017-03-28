@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import AuctionsIndex from './AuctionsIndex';
+import AuctionNew from './AuctionNew';
 
 const BASE_URL = 'http://localhost:3000/api'
 
@@ -23,15 +24,27 @@ class App extends Component {
     this.getAuctions();
   }
 
+  handleAuctionClick({id}) {
+    const {auctions} = this.state;
+    this.setState({
+      auctions: auctions.map(auc => {
+        Object.assign({}, auc)
+      })
+    })
+  }
+
   render() {
     const {auctions} = this.state;
     return (
       <div className="App">
         <h1>AUCTIONS</h1>
-        <AuctionsIndex auctions={auctions}/>
+        <AuctionsIndex auctions={auctions} />
+        <AuctionNew />
       </div>
     );
   }
 }
+
+
 
 export default App;
