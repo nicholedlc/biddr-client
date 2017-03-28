@@ -12,6 +12,7 @@ class App extends Component {
       auctions: []
     }
     this.postAuction = this.postAuction.bind(this);
+    this.handleAuctionClick = this.handleAuctionClick.bind(this);
   }
 
   getAuctions () {
@@ -42,6 +43,13 @@ class App extends Component {
     .catch(console.error)
   }
 
+  handleAuctionClick({id}) {
+    const {auctions} = this.state;
+    auctions.map(e => {
+      if(e.id === id) console.log(e);
+    });
+  }
+
   componentDidMount () {
     this.getAuctions();
   }
@@ -52,7 +60,7 @@ class App extends Component {
       <div className="App">
         <h1>AUCTIONS</h1>
         <AuctionNew onSubmit={this.postAuction}/>
-        <AuctionsIndex auctions={auctions} />
+        <AuctionsIndex auctions={auctions} onAuctionClick={this.handleAuctionClick} />
       </div>
     );
   }
