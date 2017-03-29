@@ -31,13 +31,13 @@ function AuctionNew({auction, onSubmit = () => {}}) {
           <textarea id="auctionDetails" name="details">
           </textarea>
         </div>
+        <div>
           <label htmlFor="endsOn">Ends On: </label>
           <input id="endsOn" name="endsOn" type="date"/>
-        <div>
         </div>
+        <div>
           <label htmlFor="auctionReservedPrice">Reserved Price: </label>
           <input id="auctionReservedPrice" name="reservedPrice" type="number" />
-        <div>
         </div>
         <div>
           <input type="submit" value="Submit"/>
